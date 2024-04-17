@@ -19,7 +19,7 @@ static const char * netif_ifkeys[TCPIP_ADAPTER_IF_MAX] = {
     "WIFI_STA_DEF", "WIFI_AP_DEF", "ETH_DEF", "PPP_DEF"
 };
 
-static esp_err_t tcpip_adapter_get_netif(tcpip_adapter_if_t tcpip_if, void ** netif){
+static esp_err_t troyhacks_tcpip_adapter_get_netif(tcpip_adapter_if_t tcpip_if, void ** netif){
     *netif = NULL;
     if(tcpip_if < TCPIP_ADAPTER_IF_MAX){
         esp_netif_t *esp_netif = esp_netif_get_handle_from_ifkey(netif_ifkeys[tcpip_if]);
@@ -353,7 +353,7 @@ AsyncUDPPacket::AsyncUDPPacket(AsyncUDP *udp, pbuf *pb, const ip_addr_t *raddr, 
     void * nif = NULL;
     int i;
     for (i=0; i<TCPIP_ADAPTER_IF_MAX; i++) {
-        tcpip_adapter_get_netif ((tcpip_adapter_if_t)i, &nif);
+        troyhacks_tcpip_adapter_get_netif ((tcpip_adapter_if_t)i, &nif);
         netif = (struct netif *)nif;
         if (netif && netif == ntif) {
             _if = (tcpip_adapter_if_t)i;
