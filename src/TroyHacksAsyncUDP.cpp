@@ -1,5 +1,5 @@
 #include "Arduino.h"
-#include "AsyncUDP.h"
+#include "TroyHacksAsyncUDP.h"
 
 extern "C" {
 #include "lwip/opt.h"
