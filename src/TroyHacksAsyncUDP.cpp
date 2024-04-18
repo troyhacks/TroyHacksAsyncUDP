@@ -595,7 +595,7 @@ static esp_err_t joinMulticastGroup(const ip_addr_t *addr, bool join, tcpip_adap
     struct netif * netif = NULL;
     if(tcpip_if < TCPIP_ADAPTER_IF_MAX){
         void * nif = NULL;
-        esp_err_t err = tcpip_adapter_get_netif(tcpip_if, &nif);
+        esp_err_t err = troyhacks_tcpip_adapter_get_netif(tcpip_if, &nif);
         if (err) {
             return ESP_ERR_INVALID_ARG;
         }
@@ -693,7 +693,7 @@ size_t AsyncUDP::writeTo(const uint8_t * data, size_t len, const ip_addr_t * add
         UDP_MUTEX_LOCK();
         if(tcpip_if < TCPIP_ADAPTER_IF_MAX){
             void * nif = NULL;
-            tcpip_adapter_get_netif((tcpip_adapter_if_t)tcpip_if, &nif);
+            troyhacks_tcpip_adapter_get_netif((tcpip_adapter_if_t)tcpip_if, &nif);
             if(!nif){
                 _lastErr = _udp_sendto(_pcb, pbt, addr, port);
             } else {
