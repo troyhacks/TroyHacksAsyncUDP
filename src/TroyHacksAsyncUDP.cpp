@@ -166,13 +166,13 @@ static void _udp_task(void *pvParameters){
 
 static bool _udp_task_start(){
     if(!_udp_queue){
-        _udp_queue = xQueueCreate(32, sizeof(lwip_event_packet_t *));
+        _udp_queue = xQueueCreate(TROYHACKS_UDP_TASK_QUEUE_SIZE, sizeof(lwip_event_packet_t *));
         if(!_udp_queue){
             return false;
         }
     }
     if(!_udp_task_handle){
-        xTaskCreateUniversal(_udp_task, "async_udp", 4096, NULL, CONFIG_ARDUINO_UDP_TASK_PRIORITY, (TaskHandle_t*)&_udp_task_handle, CONFIG_ARDUINO_UDP_RUNNING_CORE);
+        xTaskCreateUniversal(_udp_task, "async_udp", 4096, NULL, TROYHACKS_UDP_TASK_PRIORITY, (TaskHandle_t*)&_udp_task_handle, TROYHACKS_UDP_TASK_RUNNING_CORE);
         if(!_udp_task_handle){
             return false;
         }
